@@ -1,12 +1,16 @@
 import React, {Component} from "react";
-import {createGlobalStyle} from "styled-components"
+import GlobalStyle from "./components/ui/globalStyle"
 
 class App extends Component {
 
   render() {
+
     return (
       <>
-        Hello World
+        <GlobalStyle />
+        <div className="bg-red-900 text-white">
+          asd
+        </div>
       </>
     )
    
