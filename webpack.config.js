@@ -37,7 +37,9 @@ module.exports = {
   ],
 
   devServer: {
-    static: "./dist"
+    static: "./dist",
+    hot: true
   },
-  devtool: "inline-source-map"
+  devtool: "inline-source-map",
+  
 }

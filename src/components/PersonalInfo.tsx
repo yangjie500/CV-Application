@@ -15,14 +15,43 @@ class PersonalInfo extends Component {
       <PersonalInfoSection>
         <div>
           <InfoChangeable initialValue="Name Here">
-            {(a, b) => <h1 onClick={a}>{b}</h1>}
+            {(a, b) => <h1 className="text-5xl" onClick={a}>{b}</h1>}
           </InfoChangeable>
         </div>
 
-        <div>
-          <InfoChangeable initialValue="Email Here">
-            {(a, b) => <p onClick={a}>{b}</p>}
-          </InfoChangeable>
+        <div className="justify-self-end">
+            <InfoChangeable initialValue="Phone Here">
+              {(a, b) => (
+                <div>
+                  <span className="mr-2 font-bold">Phone number:</span>
+                  <p className="inline-block" onClick={a}>{b}</p>
+                </div>
+              )}
+            </InfoChangeable>
+            <InfoChangeable initialValue="Email Here">
+              {(a, b) => (
+                <div>
+                  <span className="mr-2 font-bold">Email:</span>
+                  <p className="inline-block" onClick={a}>{b}</p>
+                </div>
+              )}
+            </InfoChangeable>
+            <InfoChangeable initialValue="URL Here">
+              {(a, b) => (
+                <div>
+                  <span className="mr-2 font-bold">Linkedin URL:</span>
+                  <p className="inline-block" onClick={a}>{b}</p>
+                </div>
+              )}
+            </InfoChangeable>
+            <InfoChangeable initialValue="Address Here">
+              {(a, b) => (
+                <div>
+                  <span className="mr-2 font-bold">Address:</span>
+                  <p className="inline-block" onClick={a}>{b}</p>
+                </div>
+              )}
+            </InfoChangeable>
         </div>
       </PersonalInfoSection>
     )

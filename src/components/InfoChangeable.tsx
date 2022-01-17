@@ -1,11 +1,13 @@
 import React, { Component } from "react"
 
-import StyledInput from "./ui/StyledInput"
+import { InputName } from "./ui/StyledInput"
+import PrimaryButton from "./ui/StyledButton"
 
 type handle_click = () => void
+type handle_hover = (e:React.MouseEvent<HTMLDivElement>) => void
 
 interface IChangeableProps {
-  children: (a: handle_click, b: string) => React.ReactNode;
+  children: (a: handle_click, b: string, c?: handle_hover, d?: boolean) => React.ReactNode;
   initialValue: string;
 }
 
@@ -13,6 +15,7 @@ interface IChangeableState {
   ranOnce: boolean;
   edit: boolean;
   value: string;
+  hovered? : boolean
 }
 
 class InfoChangeable extends Component<IChangeableProps, IChangeableState> {
@@ -20,10 +23,20 @@ class InfoChangeable extends Component<IChangeableProps, IChangeableState> {
   state: IChangeableState = {
     ranOnce: false,
     edit: false,
-    value: ""
+    value: "",
+    hovered: false
+  }
+
+  handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
+    this.setState({
+      hovered: !this.state.hovered
+    })
   }
 
   handleClick = () => {
+    if (!this.state.value) {
+      this.setState({value: this.props.initialValue})
+    }
     this.setState({
       ranOnce: true,
       edit: !this.state.edit
@@ -39,9 +52,9 @@ class InfoChangeable extends Component<IChangeableProps, IChangeableState> {
 
   renderInputBox() {
     return (
-      <div>
-        <StyledInput type="text" name="name" value={this.state.value} onChange={this.handleChange} /> 
-        <button onClick={this.handleClick}>Update</button>
+      <div className="flex flex-row ">
+        <input className="mb-2" type="text" name="name" value={this.state.value} onChange={this.handleChange} /> 
+        <button className="self-center" onClick={this.handleClick}>Update</button>
       </div>
     )
   }
@@ -52,7 +65,7 @@ class InfoChangeable extends Component<IChangeableProps, IChangeableState> {
       <div>
         {this.state.edit ? 
           this.renderInputBox()
-        : this.props.children(this.handleClick, this.state.ranOnce ? this.state.value : this.props.initialValue)}
+        : this.props.children(this.handleClick, this.state.ranOnce ? this.state.value : this.props.initialValue, this.handleHover, this.state.hovered)}
      </div>      
     )
   }
