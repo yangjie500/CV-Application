@@ -7,8 +7,9 @@ type handle_click = () => void
 type handle_hover = (e:React.MouseEvent<HTMLDivElement>) => void
 
 interface IChangeableProps {
-  children: (a: handle_click, b: string, c?: handle_hover, d?: boolean) => React.ReactNode;
+  children: (a: handle_click, b: string, c?: handle_hover, d?: handle_hover, e?: boolean) => React.ReactNode;
   initialValue: string;
+  id? : number
 }
 
 interface IChangeableState {
@@ -27,9 +28,15 @@ class InfoChangeable extends Component<IChangeableProps, IChangeableState> {
     hovered: false
   }
 
-  handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
+  handleHoverEnter = (e: React.MouseEvent<HTMLDivElement>) => {
     this.setState({
-      hovered: !this.state.hovered
+      hovered: true
+    })
+  }
+
+  handleHoverExit  = (e: React.MouseEvent<HTMLDivElement>) => {
+    this.setState({
+      hovered: false
     })
   }
 
@@ -60,12 +67,12 @@ class InfoChangeable extends Component<IChangeableProps, IChangeableState> {
   }
 
   render () {
-    console.log(this.state.edit)
+    
     return (
       <div>
         {this.state.edit ? 
           this.renderInputBox()
-        : this.props.children(this.handleClick, this.state.ranOnce ? this.state.value : this.props.initialValue, this.handleHover, this.state.hovered)}
+        : this.props.children(this.handleClick, this.state.ranOnce ? this.state.value : this.props.initialValue, this.handleHoverEnter, this.handleHoverExit, this.state.hovered)}
      </div>      
     )
   }

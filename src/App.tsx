@@ -1,3 +1,4 @@
+import { hot } from "react-hot-loader/root"
 import React, {Component} from "react";
 import GlobalStyle from "./components/ui/globalStyle"
 
@@ -21,4 +22,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default hot(App);

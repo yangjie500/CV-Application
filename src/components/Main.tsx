@@ -14,7 +14,7 @@ class Main extends Component {
         <PersonalInfo />
         <SummaryInfo />
         <KeySkill />
-        <ProfessionalInfo /> 
+        <ProfessionalInfo />
       </main>
     )
     
