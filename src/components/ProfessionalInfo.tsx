@@ -72,8 +72,15 @@ class ProfessionalInfo extends Component<{}, IProfInfoState> {
     })
   }
 
+  deleteDetails = (jobname: string) => {
+    console.log(jobname)
+    this.setState({
+      info: this.state.info.filter(elem => elem.jobname != jobname)
+    })
+  }
+
   render() {
-    console.log(this.state.info)
+    console.log(this.state.addInput)
     return (
       <div className="my-4">
         <header className="border-b-2 border-black">
@@ -81,8 +88,19 @@ class ProfessionalInfo extends Component<{}, IProfInfoState> {
         </header>
 
         <div>
-            <ProfessionalInfoDisplay />
-            <ProfessionalInfoDisplay />
+          {
+            this.state.info.map(elem => {
+              return <ProfessionalInfoDisplay 
+              key={elem.jobname}
+              jobname={elem.jobname}
+              startdate={elem.startdate}
+              enddate={elem.enddate}
+              companyname={elem.companyname} 
+              achieve={elem.achieve}
+              deleteDetails={() => this.deleteDetails(elem.jobname)}
+              />
+            })
+          }
         </div>
 
         <button className="border-2 border-black rounded-full" onClick={this.toggleForm}>Add</button>
