@@ -9,10 +9,12 @@ interface formDetails {
 }
 
 interface IFormProps {
-  toggleForm : () => void;
+  type: "add" | "update" | "cancel"
+  toggleForm : (type: "add" | "update" | "cancel") => void;
   handleChangeAdd: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   addInput: formDetails;
   addDetails: () => void;
+  updateDetails?: () => void;
 }
 
 class Form extends Component<IFormProps> {
@@ -23,16 +25,19 @@ class Form extends Component<IFormProps> {
     this.myRef = React.createRef<HTMLFormElement>()
   }
 
+
+
   formValidation = (formInput: formDetails) => {
     let k: keyof formDetails
     let noMissing = true
     for ( k in formInput) { 
       const span = document.querySelector(`[data-valid="${k}"]`) as HTMLSpanElement  
 
-      if (formInput[k]) span.classList.remove("opacity-100")
+      if (formInput[k]) span.classList.add("opacity-0")
 
       if (!formInput[k]) {
-        span.classList.add("opacity-100")
+        console.log("hello")
+        span.classList.remove("opacity-0")
         
         noMissing = false
       } 
@@ -60,7 +65,7 @@ class Form extends Component<IFormProps> {
           <input id="date-start" name="startdate" type="date" value={this.props.addInput.startdate} onChange={this.props.handleChangeAdd} required/>
           <span data-valid="startdate" className="bg-red-400 text-white text-center opacity-0 rounded-b-md">Empty!!!</span>
 
-          <label htmlFor="date-end">Date Start</label>
+          <label htmlFor="date-end">Date End</label>
           <input id="date-end" name="enddate" type="date" value={this.props.addInput.enddate} onChange={this.props.handleChangeAdd} required/>
           <span data-valid="enddate" className="bg-red-400 text-white text-center opacity-0 rounded-b-md">Empty!!!</span>
 
@@ -74,9 +79,9 @@ class Form extends Component<IFormProps> {
 
         </form>
         
-        <div className="flex justify-center gap-8">
-          <button className="" onClick={this.addDetails}>Add New</button>
-          <button className="" onClick={this.props.toggleForm}>Cancel</button>
+        <div className="flex justify-center gap-8" >
+          {this.props.type == "add" ? <button className="" onClick={this.addDetails}>Add New</button> : <button className="" onClick={this.props.updateDetails}>Update</button> }
+          <button className="" onClick={() => this.props.toggleForm("cancel")}>Cancel</button>
         </div>
         
       </div>
