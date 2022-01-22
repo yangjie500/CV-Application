@@ -53,7 +53,7 @@ class ProfessionalInfoDisplay extends Component<IProfessionalInfoDisplayProps, I
   render() {
     
     return (
-      <div className="border-2 border-pink-400" onMouseLeave={this.handleHovered} onMouseEnter={this.handleHovered}>
+      <div className="border-2" onMouseLeave={this.handleHovered} onMouseEnter={this.handleHovered}>
         <div className="flex justify-between">
           <h3 className="font-semibold text-2xl">{this.props.jobname}</h3>
           <p>{this.dateFormat(this.props.startdate)} - {this.dateFormat(this.props.enddate)}</p>
